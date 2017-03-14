@@ -1,0 +1,19 @@
+{
+  "name": "httpweb",
+  "version": "1.0.0",
+  "description": "httpWeb application for day2 Andela Bootcamp Home study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olarewajuakeemope/httpWeb.git"
+  },
+  "author": "Olarewaju Akeem Opeyemi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olarewajuakeemope/httpWeb/issues"
+  },
+  "homepage": "https://github.com/olarewajuakeemope/httpWeb#readme"
+}
