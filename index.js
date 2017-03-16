@@ -42,8 +42,29 @@ function promptingFunct() {
     return 1;
   }
 }
-promptingFunct();
 
+function processChunkedResponse(chunk, longitude, latitude) {
+  if (typeof chunk.data !== 'undefined') {
+    console.log('Places on Longitude ' + longitude + ' and Latitude ' + latitude + ' is/are: ');
+    for (var i = 0; i < chunk.data.length; i++) {
+      var obj = chunk.data[i];
+      var crunchifyName;
+      var crunchifyValue;
+
+      for (var key in obj) {
+        crunchifyName = key;
+        crunchifyValue = obj[key].toString();
+        if (crunchifyName !== 'id') {
+          console.log(crunchifyName + ' : ' + crunchifyValue);
+        }
+      }
+      console.log('\n');
+    }
+  } else {
+    console.log('Longitude must not be over 180 and Latitude must not be over 90\n');
+    promptingFunct();
+  }
+}
 
 function makeRequestToInstagram(long, lat) {
   options.path = '/v1/locations/search?lat=' + lat + '&lng=' + long + '&access_token=' + accessToken;
@@ -53,30 +74,10 @@ function makeRequestToInstagram(long, lat) {
     res.on('data', (chunk) => {
       responseData += chunk
     });
+
     res.on('end', () => {
       var chucnkParsed = JSON.parse(responseData);
-      if (typeof chucnkParsed.data !== 'undefined') {
-        console.log('Places on Longitude ' + long + ' and Latitude ' + lat + ' is/are: ');
-        for (var i = 0; i < chucnkParsed.data.length; i++) {
-          var obj = chucnkParsed.data[i];
-          var crunchifyName;
-          var crunchifyValue;
-
-          for (var key in obj) {
-            crunchifyName = key;
-            crunchifyValue = obj[key].toString();
-            if (crunchifyName !== 'id') {
-              console.log(crunchifyName + ' : ' + crunchifyValue);
-            }
-          }
-          console.log('\n');
-        }
-      }else{
-      	console.log('Longitude must not be over 180 and Latitude must not be over 90\n');
-      	promptingFunct();
-      }
-      
-      
+      processChunkedResponse(chucnkParsed, long, lat);
     });
   });
 
@@ -85,3 +86,5 @@ function makeRequestToInstagram(long, lat) {
   });
   req.end();
 }
+
+promptingFunct();
