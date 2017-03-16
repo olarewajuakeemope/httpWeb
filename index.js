@@ -50,18 +50,12 @@ function makeRequestToInstagram(long, lat) {
   options.path = '/v1/locations/search?lat=' + lat + '&lng=' + long + '&access_token=' + accessToken;
   var responseData = '';
   var req = https.request(options, (res) => {
-    //  console.log(`STATUS: ${res.statusCode}`);
-    // console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
-      //console.log(`BODY: ${chunk}`);
-      // var re = JSON.parse(chunk);
-      // console.log(re.data);
       responseData += chunk
     });
     res.on('end', () => {
       var chucnkParsed = JSON.parse(responseData);
-      //console.log(chucnkParsed.data);
       if (typeof chucnkParsed.data !== 'undefined') {
         console.log('Places on Longitude ' + long + ' and Latitude ' + lat + ' is/are: ');
         for (var i = 0; i < chucnkParsed.data.length; i++) {
