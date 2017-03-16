@@ -6,7 +6,6 @@ var accessToken = "3466892025.023690e.155d19dac70e4e8f82f140ff5261b7c4";
 var options = {
   hostname: 'api.instagram.com',
   port: 443,
-
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
