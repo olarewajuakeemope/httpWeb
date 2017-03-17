@@ -12,7 +12,6 @@ var options = {
   }
 };
 
-
 console.log('***********Find places on a longitude and latitude using Instagram API************\n\n')
 
 var properties = [{
